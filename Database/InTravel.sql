@@ -92,7 +92,8 @@ ALTER TABLE public.chat OWNER TO postgres;
 CREATE TABLE public.city (
     city_id integer NOT NULL,
     country_id integer NOT NULL,
-    name character varying(50) NOT NULL
+    name character varying(50) NOT NULL,
+    icon_url character varying(150)
 );
 
 
@@ -118,7 +119,8 @@ ALTER TABLE public.city ALTER COLUMN city_id ADD GENERATED ALWAYS AS IDENTITY (
 
 CREATE TABLE public.country (
     country_id integer NOT NULL,
-    name character varying NOT NULL
+    name character varying NOT NULL,
+    icon_url character varying(150)
 );
 
 
@@ -130,64 +132,6 @@ ALTER TABLE public.country OWNER TO postgres;
 
 ALTER TABLE public.country ALTER COLUMN country_id ADD GENERATED ALWAYS AS IDENTITY (
     SEQUENCE NAME public.country_id_country_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1
-);
-
-
---
--- Name: customer; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.customer (
-    customer_id integer NOT NULL,
-    address_id integer NOT NULL,
-    name character varying(50) NOT NULL,
-    surname character varying(50) NOT NULL,
-    phone character varying(50) NOT NULL
-);
-
-
-ALTER TABLE public.customer OWNER TO postgres;
-
---
--- Name: customer_customer_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-ALTER TABLE public.customer ALTER COLUMN customer_id ADD GENERATED ALWAYS AS IDENTITY (
-    SEQUENCE NAME public.customer_customer_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1
-);
-
-
---
--- Name: guide; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.guide (
-    guide_id integer NOT NULL,
-    address_id integer NOT NULL,
-    name character varying(50) NOT NULL,
-    surname character varying(50) NOT NULL,
-    phone character varying(50) NOT NULL
-);
-
-
-ALTER TABLE public.guide OWNER TO postgres;
-
---
--- Name: guide_guide_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-ALTER TABLE public.guide ALTER COLUMN guide_id ADD GENERATED ALWAYS AS IDENTITY (
-    SEQUENCE NAME public.guide_guide_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -274,7 +218,8 @@ CREATE TABLE public.sight (
     sight_id integer NOT NULL,
     city_id integer NOT NULL,
     name character varying(50) NOT NULL,
-    description text
+    description text,
+    icon_url character varying(150) NOT NULL
 );
 
 
@@ -301,10 +246,13 @@ ALTER TABLE public.sight ALTER COLUMN sight_id ADD GENERATED ALWAYS AS IDENTITY 
 CREATE TABLE public."user" (
     user_id integer NOT NULL,
     registered_date date DEFAULT CURRENT_DATE NOT NULL,
-    second_id integer NOT NULL,
     email character varying(50) NOT NULL,
-    type character varying(50) NOT NULL,
-    password character varying(50) NOT NULL
+    password character varying(50) NOT NULL,
+    address_id integer,
+    icon_url character varying(150),
+    name character varying(50) NOT NULL,
+    surname character varying(50) NOT NULL,
+    phone character varying(50) NOT NULL
 );
 
 
@@ -328,6 +276,7 @@ ALTER TABLE public."user" ALTER COLUMN user_id ADD GENERATED ALWAYS AS IDENTITY 
 -- Data for Name: address; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.address (address_id, city_id, street) OVERRIDING SYSTEM VALUE VALUES (1, 1, 'unknown');
 
 
 --
@@ -340,24 +289,14 @@ ALTER TABLE public."user" ALTER COLUMN user_id ADD GENERATED ALWAYS AS IDENTITY 
 -- Data for Name: city; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.city (city_id, country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (1, 1, 'unknown', NULL);
 
 
 --
 -- Data for Name: country; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-
-
---
--- Data for Name: customer; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- Data for Name: guide; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
+INSERT INTO public.country (country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (1, 'unknown', NULL);
 
 
 --
@@ -388,41 +327,36 @@ ALTER TABLE public."user" ALTER COLUMN user_id ADD GENERATED ALWAYS AS IDENTITY 
 -- Data for Name: user; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public."user" (user_id, registered_date, email, password, address_id, icon_url, name, surname, phone) OVERRIDING SYSTEM VALUE VALUES (1, '2021-05-21', 'abdog@gmail.com', 'sasung24', 1, NULL, 'Abdussattar', 'Kassymbekov', '8 707 898 98 32');
+INSERT INTO public."user" (user_id, registered_date, email, password, address_id, icon_url, name, surname, phone) OVERRIDING SYSTEM VALUE VALUES (2, '2021-05-21', 'sasung294@gmail.com', 'pass123', 1, NULL, 'Абдусаттар', 'Касымбеков', '8 776 227 7680');
+INSERT INTO public."user" (user_id, registered_date, email, password, address_id, icon_url, name, surname, phone) OVERRIDING SYSTEM VALUE VALUES (3, '2021-05-21', 'tima@gmail.com', 'pass123', 1, NULL, 'Temirlan', 'Orazkulov', '8 777 776 22 79');
+INSERT INTO public."user" (user_id, registered_date, email, password, address_id, icon_url, name, surname, phone) OVERRIDING SYSTEM VALUE VALUES (4, '2021-05-21', 'mirasS@mail.ru', 'pass123', 1, NULL, 'Miras', 'Sagatov', '8 778 245 68 77');
+INSERT INTO public."user" (user_id, registered_date, email, password, address_id, icon_url, name, surname, phone) OVERRIDING SYSTEM VALUE VALUES (5, '2021-05-21', 'esstosh@gmail.com', 'pass123', 1, NULL, 'Yestay', 'Tastanov', '8 707 575 50 70');
+INSERT INTO public."user" (user_id, registered_date, email, password, address_id, icon_url, name, surname, phone) OVERRIDING SYSTEM VALUE VALUES (6, '2021-05-21', 'Timur@gmail.com', 'pass123', 1, NULL, 'Timur', 'Merekeyev', '8 776 774 21 54');
+INSERT INTO public."user" (user_id, registered_date, email, password, address_id, icon_url, name, surname, phone) OVERRIDING SYSTEM VALUE VALUES (7, '2021-05-21', 'TimaOrazkulov@gmail.com', 'pass123', 1, NULL, 'Temirlan', 'Orazkulov', '8 747 445 12 22');
+INSERT INTO public."user" (user_id, registered_date, email, password, address_id, icon_url, name, surname, phone) OVERRIDING SYSTEM VALUE VALUES (8, '2021-05-21', 'MirasS@gmail.com', 'pass123', 1, NULL, 'Мирас', 'Сагатов', '8 702 244 54 11');
+INSERT INTO public."user" (user_id, registered_date, email, password, address_id, icon_url, name, surname, phone) OVERRIDING SYSTEM VALUE VALUES (10, '0001-01-01', 'temirMuslimov@gmail.com', 'pass123', 1, NULL, 'Temirlan', 'Muslimov', '8 708 453 11 15');
 
 
 --
 -- Name: address_address_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.address_address_id_seq', 1, false);
+SELECT pg_catalog.setval('public.address_address_id_seq', 1, true);
 
 
 --
 -- Name: city_city_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.city_city_id_seq', 1, false);
+SELECT pg_catalog.setval('public.city_city_id_seq', 1, true);
 
 
 --
 -- Name: country_id_country_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.country_id_country_id_seq', 1, false);
-
-
---
--- Name: customer_customer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.customer_customer_id_seq', 1, false);
-
-
---
--- Name: guide_guide_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.guide_guide_id_seq', 1, false);
+SELECT pg_catalog.setval('public.country_id_country_id_seq', 1, true);
 
 
 --
@@ -450,7 +384,7 @@ SELECT pg_catalog.setval('public.sight_sight_id_seq', 1, false);
 -- Name: user_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.user_user_id_seq', 1, false);
+SELECT pg_catalog.setval('public.user_user_id_seq', 10, true);
 
 
 --
@@ -483,22 +417,6 @@ ALTER TABLE ONLY public.city
 
 ALTER TABLE ONLY public.country
     ADD CONSTRAINT country_id_pk PRIMARY KEY (country_id);
-
-
---
--- Name: customer customer_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.customer
-    ADD CONSTRAINT customer_pk PRIMARY KEY (customer_id);
-
-
---
--- Name: guide guide_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.guide
-    ADD CONSTRAINT guide_pk PRIMARY KEY (guide_id);
 
 
 --
@@ -570,20 +488,6 @@ CREATE UNIQUE INDEX country_id_country_id_idx ON public.country USING btree (cou
 
 
 --
--- Name: customer_customer_id_idx; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE UNIQUE INDEX customer_customer_id_idx ON public.customer USING btree (customer_id);
-
-
---
--- Name: guide_guide_id_idx; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE UNIQUE INDEX guide_guide_id_idx ON public.guide USING btree (guide_id);
-
-
---
 -- Name: history_history_id_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -601,7 +505,7 @@ CREATE UNIQUE INDEX memories_history_id_idx ON public.memories USING btree (hist
 -- Name: review_review_id_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX review_review_id_idx ON public.review USING btree (review_id);
+CREATE UNIQUE INDEX review_review_id_idx ON public.review USING btree (review_id, customer_id, guide_id);
 
 
 --
@@ -638,7 +542,7 @@ ALTER TABLE ONLY public.address
 --
 
 ALTER TABLE ONLY public.chat
-    ADD CONSTRAINT chat_fk FOREIGN KEY (customer_id) REFERENCES public.customer(customer_id) ON UPDATE CASCADE ON DELETE CASCADE;
+    ADD CONSTRAINT chat_fk FOREIGN KEY (customer_id) REFERENCES public."user"(user_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -646,7 +550,7 @@ ALTER TABLE ONLY public.chat
 --
 
 ALTER TABLE ONLY public.chat
-    ADD CONSTRAINT chat_fk_1 FOREIGN KEY (guide_id) REFERENCES public.guide(guide_id) ON UPDATE CASCADE ON DELETE CASCADE;
+    ADD CONSTRAINT chat_fk_1 FOREIGN KEY (guide_id) REFERENCES public."user"(user_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -658,19 +562,19 @@ ALTER TABLE ONLY public.city
 
 
 --
--- Name: guide guide_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.guide
-    ADD CONSTRAINT guide_fk FOREIGN KEY (address_id) REFERENCES public.address(address_id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
 -- Name: memories memories_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.memories
-    ADD CONSTRAINT memories_fk FOREIGN KEY (user_id) REFERENCES public."user"(user_id) ON UPDATE CASCADE ON DELETE CASCADE;
+    ADD CONSTRAINT memories_fk FOREIGN KEY (history_id) REFERENCES public.history(history_id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: memories memories_fk_1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.memories
+    ADD CONSTRAINT memories_fk_1 FOREIGN KEY (user_id) REFERENCES public."user"(user_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -678,7 +582,7 @@ ALTER TABLE ONLY public.memories
 --
 
 ALTER TABLE ONLY public.review
-    ADD CONSTRAINT review_fk FOREIGN KEY (customer_id) REFERENCES public.customer(customer_id) ON UPDATE CASCADE ON DELETE CASCADE;
+    ADD CONSTRAINT review_fk FOREIGN KEY (customer_id) REFERENCES public."user"(user_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -686,7 +590,7 @@ ALTER TABLE ONLY public.review
 --
 
 ALTER TABLE ONLY public.review
-    ADD CONSTRAINT review_fk_1 FOREIGN KEY (guide_id) REFERENCES public.guide(guide_id) ON UPDATE CASCADE ON DELETE CASCADE;
+    ADD CONSTRAINT review_fk_1 FOREIGN KEY (guide_id) REFERENCES public."user"(user_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -702,15 +606,7 @@ ALTER TABLE ONLY public.sight
 --
 
 ALTER TABLE ONLY public."user"
-    ADD CONSTRAINT user_fk FOREIGN KEY (user_id) REFERENCES public.guide(guide_id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: user user_fk_1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public."user"
-    ADD CONSTRAINT user_fk_1 FOREIGN KEY (user_id) REFERENCES public.customer(customer_id) ON UPDATE CASCADE ON DELETE CASCADE;
+    ADD CONSTRAINT user_fk FOREIGN KEY (address_id) REFERENCES public.address(address_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
