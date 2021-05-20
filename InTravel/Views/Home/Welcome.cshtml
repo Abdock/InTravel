@@ -1,0 +1,8 @@
+﻿@{
+	ViewData["Title"] = "Welcome page";
+	User user = (User) ViewData["user"];
+}
+
+<div class="text-center">
+	<span class="h1 font-weight-light">Welcome, <span class="font-weight-bold">@user.name</span> </span>
+</div>

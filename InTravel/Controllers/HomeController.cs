@@ -3,23 +3,34 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using InTravel.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using InTravel.Models;
+using InTravel.ViewModels;
 
 namespace InTravel.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private Database _database;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, Database ctx)
         {
             _logger = logger;
+            _database = ctx;
         }
 
         public IActionResult Index()
         {
+            return View();
+        }
+        
+        public IActionResult Welcome(User user)
+        {
+            ViewData["user"] = user;
+            ViewData["database"] = _database;
             return View();
         }
 

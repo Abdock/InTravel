@@ -1,1 +1,33 @@
-﻿
+﻿@model InTravel.ViewModels.LoginModel
+
+
+
+<main class="login-block" style="margin-left: 30%; margin-top: 10%" > 
+    <div  >
+        
+        <h1>Введите свои данные</h1>
+        <form asp-action="Login" asp-controller="Account" asp-anti-forgery="true" >
+            <div class="validation" asp-validation-summary="ModelOnly"></div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-user ti-user"></i></span>
+                    <input type="text" class="form-control" placeholder="Enter your email" asp-for="Email">
+                </div>
+            </div>
+
+            <hr class="hr-xs">
+
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-lock ti-unlock"></i></span>
+                    <input type="password" class="form-control" placeholder="Enter your password" asp-for="Password">
+                </div>
+            </div>
+
+            <button class="btn btn-primary btn-block" type="submit">Enter to website</button>
+
+        </form>
+    </div>
+    
+ 
+</main>
