@@ -22,11 +22,12 @@ namespace InTravel.Controllers
         }
         
         private async Task Authenticate(string email)
-        { var claims = new List<Claim>
+        {
+            var claims = new List<Claim>
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, email)
             };
-            ClaimsIdentity identity = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+            var identity = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
         }
 
@@ -34,6 +35,7 @@ namespace InTravel.Controllers
         [HttpGet]
         public IActionResult Login()
         {
+            ViewData["hasUser"] = false;
             ViewData["database"] = _database;
             return View();
         }
@@ -61,6 +63,7 @@ namespace InTravel.Controllers
         [HttpGet]
         public IActionResult Register()
         {
+            ViewData["hasUser"] = false;
             ViewData["database"] = _database;
             return View();
         }

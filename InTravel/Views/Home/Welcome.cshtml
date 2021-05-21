@@ -1,8 +1,10 @@
 ﻿@using InTravel.Data
+@using Microsoft.AspNetCore.Mvc.RazorPages
 @using Microsoft.AspNetCore.Mvc.Routing
 @using Microsoft.EntityFrameworkCore
 @{
 	ViewData["Title"] = "Home page";
+	ViewData["hasUser"] = true;
 	User user = (User) ViewData["user"];
 	Database db = (Database) ViewData["database"];
 	var conn = db.Database.GetDbConnection();
@@ -13,13 +15,14 @@
 <div class="text-center">
 	<span class="h1 font-weight-light d-block">Welcome, <span class="font-weight-bold">@user.name</span> </span>
 	<div class="d-block container m-3">
-		<input type="text" placeholder="Search..." class="input-group d-inline-block w-75" height="33.5px" />
-		<button type="submit" class="btn btn-primary d-inline-block" style="background-color: #0CC4EC; width: 10%">Go</button>
+		<input type="text" id="search" placeholder="Search..." class="input-group d-inline-block w-75" height="33.5px" />
+		<button type="submit" class="btn btn-primary d-inline-block" id="start" style="background-color: #0CC4EC; width: 10%">Go</button>
 	</div>
 	<ul class="list-group">
 		@{
 			cmd.CommandText = "SELECT * FROM country";
 			var reader = await cmd.ExecuteReaderAsync();
+			List<Country> countries = new List<Country>();
 			while (await reader.ReadAsync())
 			{
 				if ((int)reader[0] == 1)
@@ -27,7 +30,8 @@
 					continue;
 				}
 				Country country = new Country{country_id = (int)reader[0], name = (string)reader[1], icon_url = (string)reader[2], description = (string)reader[3]};
-				<li class="list-group-item d-flex">
+				countries.Add(country);
+				<li class="list-group-item d-flex" id="@country.name">
 					<img src="@reader[2]" class="d-inline-block" style="margin: auto; width: 30%; "/>
 					<div class="container d-inline-block m-5 text-left" style="width: 65%;">
 						<span class="h2 d-block">@reader[1]</span>
@@ -41,3 +45,29 @@
 		}
 	</ul>
 </div>
+<script>
+	let countries = [];
+	@{
+		foreach (var country in countries)
+		{
+			<text>
+				countries.push("@country.name");
+			</text>
+		}
+	}
+	document.getElementById("start").onclick = function (event)
+	{
+		let text = document.getElementById("search").value;
+		for (let i = 0; i < countries.length; ++i)
+		{
+			if (countries[i].toLowerCase().search(text.toLowerCase()) == -1)
+			{
+				document.getElementById(countries[i]).style.display = "none";
+			}
+			else
+			{
+				document.getElementById(countries[i]).style.display = "initial";
+			}
+		}
+	}
+</script>
