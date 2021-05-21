@@ -10,6 +10,12 @@ namespace InTravel.Data
         
         public DbSet<User> user { get; set; }
         
+        public DbSet<Address> address { get; set; }
+        
+        public DbSet<City> city { get; set; }
+        
+        public DbSet<Country> counrty { get; set; }
+        
         public Database(DbContextOptions<Database> options) : base(options)
         {
             Database.EnsureCreated();

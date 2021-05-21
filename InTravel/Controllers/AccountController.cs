@@ -3,7 +3,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using InTravel.Data;
-using InTravel.Extension;
 using InTravel.Models;
 using InTravel.ViewModels;
 using Microsoft.AspNetCore.Authentication;
@@ -23,8 +22,7 @@ namespace InTravel.Controllers
         }
         
         private async Task Authenticate(string email)
-        {
-            var claims = new List<Claim>
+        { var claims = new List<Claim>
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, email)
             };

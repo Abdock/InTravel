@@ -1,8 +1,35 @@
-﻿@{
-	ViewData["Title"] = "Welcome page";
+﻿@using InTravel.Data
+@using Microsoft.EntityFrameworkCore
+@{
+	ViewData["Title"] = "Home page";
 	User user = (User) ViewData["user"];
+	Database db = (Database) ViewData["database"];
+	var conn = db.Database.GetDbConnection();
+	await conn.OpenAsync();
+	var cmd = conn.CreateCommand();
 }
 
 <div class="text-center">
-	<span class="h1 font-weight-light">Welcome, <span class="font-weight-bold">@user.name</span> </span>
+	<span class="h1 font-weight-light d-block">Welcome, <span class="font-weight-bold">@user.name</span> </span>
+	<div class="d-block container">
+		<input type="text" placeholder="Search..." class="input-group" />
+		<button type="submit">Go</button>
+	</div>
+	<ul class="list-group">
+		@{
+			cmd.CommandText = "SELECT * FROM country";
+			var reader = await cmd.ExecuteReaderAsync();
+			while (await reader.ReadAsync())
+			{
+				if ((int)reader[0] == 1)
+				{
+					continue;
+				}
+				<li class="list-group-item">
+					<img src="@reader[2]" class="d-inline-block w-50"/>
+					<span class="h2 d-block">@reader[1]</span>
+				</li>
+			}
+		}
+	</ul>
 </div>

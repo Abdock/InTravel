@@ -50,7 +50,7 @@ SET default_table_access_method = heap;
 CREATE TABLE public.address (
     address_id integer NOT NULL,
     city_id integer NOT NULL,
-    street character varying(100) NOT NULL
+    street character varying(100) DEFAULT 'unknown'::character varying
 );
 
 
@@ -277,6 +277,15 @@ ALTER TABLE public."user" ALTER COLUMN user_id ADD GENERATED ALWAYS AS IDENTITY 
 --
 
 INSERT INTO public.address (address_id, city_id, street) OVERRIDING SYSTEM VALUE VALUES (1, 1, 'unknown');
+INSERT INTO public.address (address_id, city_id, street) OVERRIDING SYSTEM VALUE VALUES (2, 1, 'unknown');
+INSERT INTO public.address (address_id, city_id, street) OVERRIDING SYSTEM VALUE VALUES (3, 2, 'unknown');
+INSERT INTO public.address (address_id, city_id, street) OVERRIDING SYSTEM VALUE VALUES (4, 3, 'unknown');
+INSERT INTO public.address (address_id, city_id, street) OVERRIDING SYSTEM VALUE VALUES (5, 4, 'unknown');
+INSERT INTO public.address (address_id, city_id, street) OVERRIDING SYSTEM VALUE VALUES (6, 5, 'unknown');
+INSERT INTO public.address (address_id, city_id, street) OVERRIDING SYSTEM VALUE VALUES (7, 6, 'unknown');
+INSERT INTO public.address (address_id, city_id, street) OVERRIDING SYSTEM VALUE VALUES (8, 7, 'unknown');
+INSERT INTO public.address (address_id, city_id, street) OVERRIDING SYSTEM VALUE VALUES (9, 8, 'unknown');
+INSERT INTO public.address (address_id, city_id, street) OVERRIDING SYSTEM VALUE VALUES (10, 9, 'unknown');
 
 
 --
@@ -290,6 +299,14 @@ INSERT INTO public.address (address_id, city_id, street) OVERRIDING SYSTEM VALUE
 --
 
 INSERT INTO public.city (city_id, country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (1, 1, 'unknown', NULL);
+INSERT INTO public.city (city_id, country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (2, 2, 'Tokyo', 'https://images.app.goo.gl/CURSbn77PFsWAQE27');
+INSERT INTO public.city (city_id, country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (3, 2, 'Kyoto', 'https://images.app.goo.gl/sdM37Bx63xnhbjwD7');
+INSERT INTO public.city (city_id, country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (4, 3, 'Astana', 'https://images.app.goo.gl/9o4fuhA71RYyS4J69');
+INSERT INTO public.city (city_id, country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (5, 3, 'Almaty', 'https://images.app.goo.gl/ZHZog9hvHLFYzCGu6');
+INSERT INTO public.city (city_id, country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (6, 4, 'New York', 'https://images.app.goo.gl/r6phDQULYzSL3e846');
+INSERT INTO public.city (city_id, country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (7, 4, 'Los-Angeles', 'https://images.app.goo.gl/fvxjC3zcPgu2792BA');
+INSERT INTO public.city (city_id, country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (8, 5, 'Milan', 'https://images.app.goo.gl/4AdX9eAvvPHYbDCs5');
+INSERT INTO public.city (city_id, country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (9, 5, 'Rome', 'https://images.app.goo.gl/XyCBrBBwUHgHWYzA6');
 
 
 --
@@ -297,6 +314,10 @@ INSERT INTO public.city (city_id, country_id, name, icon_url) OVERRIDING SYSTEM 
 --
 
 INSERT INTO public.country (country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (1, 'unknown', NULL);
+INSERT INTO public.country (country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (2, 'Japan', '/img/Japan Logo.jpg');
+INSERT INTO public.country (country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (3, 'Kazakhstan', '/img/Kazakhstan logo.jpg');
+INSERT INTO public.country (country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (4, 'USA', '/img/USA logo.jpg');
+INSERT INTO public.country (country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (5, 'Italy', '/img/Italy logo.jpg');
 
 
 --
@@ -342,21 +363,21 @@ INSERT INTO public."user" (user_id, registered_date, email, password, address_id
 -- Name: address_address_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.address_address_id_seq', 1, true);
+SELECT pg_catalog.setval('public.address_address_id_seq', 10, true);
 
 
 --
 -- Name: city_city_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.city_city_id_seq', 1, true);
+SELECT pg_catalog.setval('public.city_city_id_seq', 9, true);
 
 
 --
 -- Name: country_id_country_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.country_id_country_id_seq', 1, true);
+SELECT pg_catalog.setval('public.country_id_country_id_seq', 5, true);
 
 
 --
