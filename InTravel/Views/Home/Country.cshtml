@@ -1,0 +1,30 @@
+﻿@using InTravel.Data
+@using Microsoft.EntityFrameworkCore
+@{
+	var country = (Country) ViewData["country"];
+	ViewData["Title"] = "Country " + country;
+	var db = (Database) ViewData["database"];
+	var conn = db.Database.GetDbConnection();
+	await conn.OpenAsync();
+	var cmd = conn.CreateCommand();
+}
+<div class="container d-flex justify-content-center align-items-center">
+	<h1 class="position-absolute">@country.name</h1>
+	<img src="@country.icon_url" alt="@country.name" class="w-100 d-block" />
+</div>
+<p class="text-dark" style="margin: 30px 0;">@country.description</p>
+<ul class="list-group">
+	@{
+		cmd.CommandText = $"SELECT * FROM city WHERE country_id = {country.country_id}";
+		var reader = await cmd.ExecuteReaderAsync();
+		while (await reader.ReadAsync())
+		{
+			<li class="list-group-item d-flex justify-content-center align-items-center">
+				<img src="/@reader[3]" alt="@reader[2]" class="w-75" />
+				<span class="position-absolute m-auto h1 font-weight-bold" style="color: #0CC4EC;">@reader[2]</span>
+			</li>
+		}
+		await reader.DisposeAsync();
+		await conn.CloseAsync();
+	}
+</ul>

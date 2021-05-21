@@ -120,7 +120,8 @@ ALTER TABLE public.city ALTER COLUMN city_id ADD GENERATED ALWAYS AS IDENTITY (
 CREATE TABLE public.country (
     country_id integer NOT NULL,
     name character varying NOT NULL,
-    icon_url character varying(150)
+    icon_url character varying(150),
+    description text
 );
 
 
@@ -299,25 +300,25 @@ INSERT INTO public.address (address_id, city_id, street) OVERRIDING SYSTEM VALUE
 --
 
 INSERT INTO public.city (city_id, country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (1, 1, 'unknown', NULL);
-INSERT INTO public.city (city_id, country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (2, 2, 'Tokyo', 'https://images.app.goo.gl/CURSbn77PFsWAQE27');
-INSERT INTO public.city (city_id, country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (3, 2, 'Kyoto', 'https://images.app.goo.gl/sdM37Bx63xnhbjwD7');
-INSERT INTO public.city (city_id, country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (4, 3, 'Astana', 'https://images.app.goo.gl/9o4fuhA71RYyS4J69');
-INSERT INTO public.city (city_id, country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (5, 3, 'Almaty', 'https://images.app.goo.gl/ZHZog9hvHLFYzCGu6');
-INSERT INTO public.city (city_id, country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (6, 4, 'New York', 'https://images.app.goo.gl/r6phDQULYzSL3e846');
-INSERT INTO public.city (city_id, country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (7, 4, 'Los-Angeles', 'https://images.app.goo.gl/fvxjC3zcPgu2792BA');
-INSERT INTO public.city (city_id, country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (8, 5, 'Milan', 'https://images.app.goo.gl/4AdX9eAvvPHYbDCs5');
-INSERT INTO public.city (city_id, country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (9, 5, 'Rome', 'https://images.app.goo.gl/XyCBrBBwUHgHWYzA6');
+INSERT INTO public.city (city_id, country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (9, 5, 'Rome', 'img/Rome.jpg');
+INSERT INTO public.city (city_id, country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (3, 2, 'Kyoto', 'img/Kyoto.jpg');
+INSERT INTO public.city (city_id, country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (2, 2, 'Tokyo', 'img/Tokyo.jpg');
+INSERT INTO public.city (city_id, country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (7, 4, 'Los-Angeles', 'img/LosAngeles.jpg');
+INSERT INTO public.city (city_id, country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (4, 3, 'Astana', 'img/Astana.jpg');
+INSERT INTO public.city (city_id, country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (5, 3, 'Almaty', 'img/Almaty.jpg');
+INSERT INTO public.city (city_id, country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (8, 5, 'Milan', 'img/Milan.jpg');
+INSERT INTO public.city (city_id, country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (6, 4, 'New York', 'img/NewYork.jpg');
 
 
 --
 -- Data for Name: country; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.country (country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (1, 'unknown', NULL);
-INSERT INTO public.country (country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (2, 'Japan', '/img/Japan Logo.jpg');
-INSERT INTO public.country (country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (3, 'Kazakhstan', '/img/Kazakhstan logo.jpg');
-INSERT INTO public.country (country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (4, 'USA', '/img/USA logo.jpg');
-INSERT INTO public.country (country_id, name, icon_url) OVERRIDING SYSTEM VALUE VALUES (5, 'Italy', '/img/Italy logo.jpg');
+INSERT INTO public.country (country_id, name, icon_url, description) OVERRIDING SYSTEM VALUE VALUES (1, 'unknown', NULL, NULL);
+INSERT INTO public.country (country_id, name, icon_url, description) OVERRIDING SYSTEM VALUE VALUES (2, 'Japan', '/img/Japan Logo.jpg', 'Japan is an island country in East Asia, located in the northwest Pacific Ocean. It is bordered on the west by the Sea of Japan, and extends from the Sea of Okhotsk in the north toward the East China Sea and Taiwan in the south. Part of the Ring of Fire, Japan spans an archipelago of 6852 islands covering 377,975 square kilometers; the five main islands are Hokkaido, Honshu, Shikoku, Kyushu, and Okinawa. Tokyo is Japan''s capital and largest city; other major cities include Yokohama, Osaka, Nagoya, Sapporo, Fukuoka, Kobe, and Kyoto.');
+INSERT INTO public.country (country_id, name, icon_url, description) OVERRIDING SYSTEM VALUE VALUES (3, 'Kazakhstan', '/img/Kazakhstan logo.jpg', 'Kazakhstan, officially the Republic of Kazakhstan, is a transcontinental country mainly located in Central Asia with a smaller portion west of the Ural River in Eastern Europe. It covers a land area of 2,724,900 square kilometres (1,052,100 sq mi), and shares land borders with Russia in the north, China in the east, and Kyrgyzstan, Uzbekistan, and Turkmenistan in the south while also adjoining a large part of the Caspian Sea in the southwest. Kazakhstan does not border Mongolia, although they are only 37 kilometers apart, separated by a short portion of the border between Russia and China.');
+INSERT INTO public.country (country_id, name, icon_url, description) OVERRIDING SYSTEM VALUE VALUES (4, 'USA', '/img/USA logo.jpg', 'The United States of America (U.S.A. or USA), commonly known as the United States (U.S. or US) or America, is a country primarily located in North America. It consists of 50 states, a federal district, five major unincorporated territories, 326 Indian reservations, and some minor possessions. At 3.8 million square miles (9.8 million square kilometers), it is the world''s third- or fourth-largest country by total area.With a population of more than 331 million people, it is the third most populous country in the world. The national capital is Washington, D.C., and the most populous city is New York City.');
+INSERT INTO public.country (country_id, name, icon_url, description) OVERRIDING SYSTEM VALUE VALUES (5, 'Italy', '/img/Italy logo.jpg', 'Italy, officially the Italian Republic, is a country consisting of a continental part, delimited by the Alps, a peninsula and several islands surrounding it. Italy is located in Southern Europe, and is also considered part of Western Europe. A unitary parliamentary republic with Rome as its capital, the country covers a total area of 301,340 km2 (116,350 sq mi) and shares land borders with France, Switzerland, Austria, Slovenia, and the enclaved microstates of Vatican City and San Marino. Italy has a territorial enclave in Switzerland (Campione) and a maritime exclave in Tunisian waters (Lampedusa). With around 60 million inhabitants, Italy is the third-most populous member state of the European Union.');
 
 
 --

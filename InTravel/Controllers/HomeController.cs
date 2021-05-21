@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using InTravel.Models;
 using InTravel.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace InTravel.Controllers
 {
@@ -26,10 +27,17 @@ namespace InTravel.Controllers
         {
             return View();
         }
-        
+
         public IActionResult Welcome(User user)
         {
             ViewData["user"] = user;
+            ViewData["database"] = _database;
+            return View();
+        }
+
+        public IActionResult Country(Country country)
+        {
+            ViewData["country"] = country;
             ViewData["database"] = _database;
             return View();
         }
