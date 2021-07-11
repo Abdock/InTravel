@@ -41,7 +41,6 @@
 				</li>
 			}
 			await reader.DisposeAsync();
-			await conn.CloseAsync();
 		}
 	</ul>
 </div>
@@ -55,19 +54,25 @@
 			</text>
 		}
 	}
+	
+	
 	document.getElementById("start").onclick = function (event)
 	{
+		console.log("work");
 		let text = document.getElementById("search").value;
 		for (let i = 0; i < countries.length; ++i)
 		{
-			if (countries[i].toLowerCase().search(text.toLowerCase()) == -1)
+			if (countries[i].toLowerCase().search(text.toLowerCase()) === -1)
 			{
-				document.getElementById(countries[i]).style.display = "none";
+				document.getElementById(countries[i]).classList.replace('d-flex', 'd-none');
 			}
 			else
 			{
-				document.getElementById(countries[i]).style.display = "initial";
+				document.getElementById(countries[i]).classList.replace('d-none', 'd-flex');
 			}
 		}
 	}
 </script>
+@{
+	await conn.CloseAsync();
+}

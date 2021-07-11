@@ -3,6 +3,7 @@
 @{
 	var country = (Country) ViewData["country"];
 	ViewData["Title"] = "Country " + country;
+	ViewData["hasUser"] = true;
 	var db = (Database) ViewData["database"];
 	var conn = db.Database.GetDbConnection();
 	await conn.OpenAsync();
@@ -25,6 +26,6 @@
 			</li>
 		}
 		await reader.DisposeAsync();
-		await conn.CloseAsync();
 	}
 </ul>
+@{await reader.CloseAsync();}

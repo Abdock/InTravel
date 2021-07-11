@@ -52,11 +52,13 @@
           <e p="_ViewStart.cshtml" t="Include" />
           <e p="Account" t="Include">
             <e p="Login.cshtml" t="Include" />
+            <e p="Profile.cshtml" t="Include" />
             <e p="Register.cshtml" t="Include" />
           </e>
           <e p="Home" t="Include">
             <e p="Country.cshtml" t="Include" />
             <e p="Index.cshtml" t="Include" />
+            <e p="Map.cshtml" t="Include" />
             <e p="Privacy.cshtml" t="Include" />
             <e p="Welcome.cshtml" t="Include" />
           </e>
@@ -78,6 +80,7 @@
             <e p="Japan Logo.jpg" t="Include" />
             <e p="Kazakhstan logo.jpg" t="Include" />
             <e p="Kyoto.jpg" t="Include" />
+            <e p="logo.png" t="Include" />
             <e p="LosAngeles.jpg" t="Include" />
             <e p="Milan.jpg" t="Include" />
             <e p="NewYork.jpg" t="Include" />

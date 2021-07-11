@@ -19,6 +19,7 @@ namespace InTravel.Controllers
 
         public HomeController(ILogger<HomeController> logger, Database ctx)
         {
+            ViewData["hasUser"] = false;
             _logger = logger;
             _database = ctx;
         }
@@ -30,6 +31,7 @@ namespace InTravel.Controllers
 
         public IActionResult Welcome(User user)
         {
+            ViewData["hasUser"] = true;
             ViewData["user"] = user;
             ViewData["database"] = _database;
             return View();
@@ -37,12 +39,18 @@ namespace InTravel.Controllers
 
         public IActionResult Country(Country country)
         {
+            ViewData["hasUser"] = true;
             ViewData["country"] = country;
             ViewData["database"] = _database;
             return View();
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult Map()
         {
             return View();
         }
